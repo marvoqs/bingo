@@ -31,18 +31,16 @@ const GameSchema = new mongoose.Schema({
   },
   results: {
     type: [[Boolean]],
-    required: true,
   },
   tickets: [
     {
       user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
       },
       key: {
         type: String,
         required: true,
-        unique: true,
       },
       tips: {
         type: [[Boolean]],

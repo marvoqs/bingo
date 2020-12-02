@@ -71,7 +71,8 @@ router.post(
     [
       check('timelimit', 'Time limit has to be a number.').isInt(),
       check('numoftips', 'Number of possible tips has to be a number.').isInt(),
-      check('template', 'Template has to be an array.').isArray(),
+      check('template[*]', 'Template has to be an array of arrays.').isArray(),
+      check('template[*].*', 'Every field has to be a string.').isString(),
     ],
   ],
   async (req, res) => {

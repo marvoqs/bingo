@@ -4,7 +4,7 @@ const Game = require('../models/Game');
 exports.getTicketKey = async (gameId) => {
   // Get random key
   var key = '';
-  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var characters = 'ABCDEFGHIJKLMNPQRSTUVXZ123456789';
   var charactersLength = characters.length;
   for (var i = 0; i < 6; i++) {
     key += characters.charAt(Math.floor(Math.random() * charactersLength));

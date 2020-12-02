@@ -142,6 +142,7 @@ router.post(
     [
       check('timelimit', 'Time limit is required.').not().isEmpty(),
       check('timelimit', 'Time limit has to be a number.').isInt(),
+      check('title', 'Title has to be a string.').isString(),
       check('numoftips', 'Number of possible tips is required.').not().isEmpty(),
       check('numoftips', 'Number of possible tips has to be a number.').isInt(),
       check('template', 'Template is required.').not().isEmpty(),
@@ -155,7 +156,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { timelimit, numoftips, template } = req.body;
+    const { title, timelimit, numoftips, template } = req.body;
 
     // Build initial results array filled with false values
     const results = [...template.map((item) => [...item.map((item) => false)])];
@@ -167,6 +168,7 @@ router.post(
       const newGame = new Game({
         user: req.user.id,
         key,
+        title,
         timelimit,
         numoftips,
         template,

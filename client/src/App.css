@@ -4,6 +4,7 @@
   --dark-color: #181a1b;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
+  --warning-color: #ffcc00;
   --success-color: #28a745;
 }
 
@@ -131,6 +132,13 @@ img {
 .alert-danger {
   background: var(--danger-color);
   color: #fff;
+}
+
+.btn-warning,
+.bg-warning,
+.alert-warning {
+  background: var(--warning-color);
+  color: #333;
 }
 
 .btn-success,

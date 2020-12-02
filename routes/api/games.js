@@ -41,7 +41,7 @@ router.get('/id/:game_id', auth, async (req, res) => {
   }
 });
 
-// @route   GET api/games/start/:game_id
+// @route   PUT api/games/start/:game_id
 // @desc    Start game
 // @access  Private
 router.put('/start/:game_id', auth, async (req, res) => {
@@ -74,7 +74,7 @@ router.put('/start/:game_id', auth, async (req, res) => {
   }
 });
 
-// @route   GET api/games/stop/:game_id
+// @route   PUT api/games/stop/:game_id
 // @desc    Stop game
 // @access  Private
 router.put('/stop/:game_id', auth, async (req, res) => {
@@ -110,9 +110,17 @@ router.put('/stop/:game_id', auth, async (req, res) => {
 router.get('/key/:key', async (req, res) => {
   try {
     const game = await Game.findOne({ key: req.params.key });
+
+    // Check if game exists
     if (!game) {
       return res.status(404).json({ msg: 'Game not found.' });
     }
+
+    // Check if game is active
+    if (!game.active) {
+      return res.status(401).json({ msg: 'This game is already closed.' });
+    }
+
     res.json(game);
   } catch (err) {
     if (err.kind === 'ObjectId') {
@@ -174,7 +182,48 @@ router.post(
   }
 );
 
-// @route   POST api/games/ticket/post_id
+// @route   PUT api/games/results/game_id
+// @desc    Update results
+// @access  Private
+router.put(
+  '/results/:game_id',
+  [
+    auth,
+    [
+      check('results', 'Results are required.').not().isEmpty(),
+      check('results[*]', 'Results has to be an array of arrays.').isArray(),
+      check('results[*].*', 'Every field has to be a boolean value.').isBoolean(),
+    ],
+  ],
+  async (req, res) => {
+    try {
+      const game = await Game.findById(req.params.game_id);
+      if (!game) {
+        return res.status(404).json({ msg: 'Game not found.' });
+      }
+
+      // Check if user is the owner of the game
+      if (game.user != req.user.id) {
+        return res.status(401).json({ msg: 'You have not permission to update results of this game.' });
+      }
+
+      game.results = req.body.results;
+
+      await game.save();
+
+      res.json(game);
+    } catch (err) {
+      if (err.kind === 'ObjectId') {
+        return res.status(404).json({ msg: 'Game not found.' });
+      } else {
+        console.error(err.message);
+        res.status(500).send('Server error.');
+      }
+    }
+  }
+);
+
+// @route   POST api/games/ticket/game_id
 // @desc    Submit ticket
 // @access  Public
 router.post(
@@ -194,10 +243,6 @@ router.post(
 
     try {
       const game = await Game.findById(req.params.game_id);
-      // Check if game is active
-      if (game.active === false) {
-        return res.status(401).json({ msg: 'This game is already closed.' });
-      }
       // Get unique key
       const key = await keys.getTicketKey(req.params.game_id);
       // Build ticket object

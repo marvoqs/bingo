@@ -1,7 +1,7 @@
 /* Global Styles */
 :root {
   --primary-color: #c24914;
-  --dark-color: #0a0401;
+  --dark-color: #181a1b;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
@@ -203,6 +203,7 @@ button {
 
 .table {
   width: 100%;
+  table-layout: fixed;
 }
 
 .table th,

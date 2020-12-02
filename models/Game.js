@@ -10,6 +10,9 @@ const GameSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  title: {
+    type: String,
+  },
   timelimit: {
     type: Number,
     required: true,

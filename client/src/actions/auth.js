@@ -80,5 +80,6 @@ export const login = (email, password) => async (dispatch) => {
 
 // Logout
 export const logout = () => (dispatch) => {
+  dispatch(setAlert('Byl/a jsi odhlášen/a.', 'success'));
   dispatch({ type: LOGOUT });
 };

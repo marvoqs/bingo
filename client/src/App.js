@@ -6,6 +6,8 @@ import Game from './components/game/Game';
 import Admin from './components/admin/Admin';
 import Alert from './components/layout/Alert';
 import Navbar from './components/layout/Navbar';
+import AdminGames from './components/admin/AdminGames';
+import AdminUsers from './components/admin/AdminUsers';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 // CSS
@@ -37,8 +39,10 @@ const App = () => {
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path='/:game_key' component={Game} />
-            <PrivateRoute exact path='admin' component={Admin} />
+            <Route exact path='/game/:game_key' component={Game} />
+            <PrivateRoute exact path='/admin' component={Admin} />
+            <PrivateRoute exact path='/admin/games' component={AdminGames} />
+            <PrivateRoute exact path='/admin/users' component={AdminUsers} />
           </Switch>
         </section>
       </Router>

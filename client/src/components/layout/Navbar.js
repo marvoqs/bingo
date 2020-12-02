@@ -6,30 +6,30 @@ import { logout } from '../../actions/auth';
 
 const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
   return (
-    <nav className='navbar bg-dark'>
-      <h1>Bingo</h1>
+    <>
       {!loading && (
         <>
-          {isAuthenticated ? (
-            <ul>
-              <li>
-                <Link to='/admin/games'>Správa her</Link>
-              </li>
-              <li>
-                <Link to='/admin/users'>Správa účtů</Link>
-              </li>
-              <li>
-                <a href='#!' onClick={logout}>
-                  Logout
-                </a>
-              </li>
-            </ul>
-          ) : (
-            <span>anonymní uživatel</span>
+          {isAuthenticated && (
+            <nav className='navbar bg-dark'>
+              <h1>Administrace</h1>
+              <ul>
+                <li>
+                  <Link to='/admin/games'>Správa her</Link>
+                </li>
+                <li>
+                  <Link to='/admin/users'>Správa účtů</Link>
+                </li>
+                <li>
+                  <a href='#!' onClick={logout}>
+                    Odhlásit se
+                  </a>
+                </li>
+              </ul>
+            </nav>
           )}
         </>
       )}
-    </nav>
+    </>
   );
 };
 

@@ -149,6 +149,9 @@ router.post(
 
     const { timelimit, numoftips, template } = req.body;
 
+    // Build initial results array filled with false values
+    const results = [...template.map((item) => [...item.map((item) => false)])];
+
     try {
       // Get unique key
       const key = await keys.getGameKey();
@@ -159,6 +162,7 @@ router.post(
         timelimit,
         numoftips,
         template,
+        results,
       });
 
       const game = await newGame.save();

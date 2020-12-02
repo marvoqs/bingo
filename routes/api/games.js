@@ -204,8 +204,8 @@ router.put(
         return res.status(404).json({ msg: 'Game not found.' });
       }
 
-      // Check if user is the owner of the game
-      if (game.user != req.user.id) {
+      // Check on user
+      if (game.user.toString() !== req.user.id) {
         return res.status(401).json({ msg: 'You have not permission to update results of this game.' });
       }
 
@@ -262,5 +262,33 @@ router.post(
     }
   }
 );
+
+// @route   DELETE api/games/:game_id
+// @desc    Delete game by ID
+// @access  Private
+router.delete('/:game_id', auth, async (req, res) => {
+  try {
+    const game = await Game.findById(req.params.game_id);
+
+    if (!game) {
+      return res.status(404).json({ msg: 'Game not found.' });
+    }
+
+    // Check on user
+    if (game.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'You have not permission to delete this game.' });
+    }
+
+    await game.remove();
+    res.json({ msg: 'Game deleted.' });
+  } catch (err) {
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Game not found.' });
+    } else {
+      console.error(err.message);
+      res.status(500).send('Server error.');
+    }
+  }
+});
 
 module.exports = router;

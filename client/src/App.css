@@ -14,7 +14,7 @@
 }
 
 body {
-  font-family: 'Barlow', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #333;
@@ -201,6 +201,10 @@ button {
   font: inherit;
 }
 
+.table {
+  width: 100%;
+}
+
 .table th,
 .table td {
   padding: 1rem;
@@ -208,7 +212,7 @@ button {
 }
 
 .table th {
-  background: var(--light-color);
+  background: var(--dark-color);
 }
 
 /* Navbar */

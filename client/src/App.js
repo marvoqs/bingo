@@ -6,7 +6,7 @@ import Game from './components/game/Game';
 import Admin from './components/admin/Admin';
 import Alert from './components/layout/Alert';
 import Navbar from './components/layout/Navbar';
-import AdminGames from './components/admin/AdminGames';
+import AdminGames from './components/admin/games/Games';
 import AdminUsers from './components/admin/AdminUsers';
 import PrivateRoute from './components/routing/PrivateRoute';
 

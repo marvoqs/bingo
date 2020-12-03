@@ -46,13 +46,22 @@ img {
 }
 
 .spinner {
-  margin: 2rem auto;
-  border: 0.5rem solid var(--light-color);
-  border-top: 0.5rem solid var(--primary-color);
+  margin: 5rem auto;
+  border: 0.8rem solid var(--dark-color);
+  border-top: 0.8rem solid var(--primary-color);
   border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
+  width: 6rem;
+  height: 6rem;
   animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* Text Styles*/

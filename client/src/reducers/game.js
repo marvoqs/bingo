@@ -1,4 +1,4 @@
-import { GET_GAMES, GAME_ERROR, DELETE_GAME } from '../actions/types';
+import { GET_GAMES, ADD_GAME, DELETE_GAME, GAME_ERROR } from '../actions/types';
 
 const initialState = {
   games: [],
@@ -17,16 +17,22 @@ export default function (state = initialState, action) {
         games: payload,
         loading: false,
       };
-    case GAME_ERROR:
+    case ADD_GAME:
       return {
         ...state,
-        error: payload,
+        games: [payload, state.games],
         loading: false,
       };
     case DELETE_GAME:
       return {
         ...state,
         games: state.games.filter((game) => game._id !== payload),
+        loading: false,
+      };
+    case GAME_ERROR:
+      return {
+        ...state,
+        error: payload,
         loading: false,
       };
     default:

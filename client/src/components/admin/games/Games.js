@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '../../layout/Spinner';
@@ -14,6 +15,9 @@ const Games = ({ getGames, game: { games, loading } }) => {
   ) : (
     <>
       <h2>Správa her</h2>
+      <Link to='/admin/games/create' className='btn btn-success'>
+        Vytvořit hru
+      </Link>
       <table className='table'>
         <thead>
           <tr>

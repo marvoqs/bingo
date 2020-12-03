@@ -9,5 +9,6 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
 export const GET_GAMES = 'GET_GAMES';
-export const GAME_ERROR = 'GAME_ERROR';
+export const ADD_GAME = 'ADD_GAME';
 export const DELETE_GAME = 'DELETE_GAME';
+export const GAME_ERROR = 'GAME_ERROR';

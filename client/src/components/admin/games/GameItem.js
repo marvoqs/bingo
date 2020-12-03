@@ -14,6 +14,9 @@ const GameItem = ({ auth, game: { _id, key, title, user, date }, deleteGame }) =
         <DayJS format='D. M. YYYY H:mm'>{date}</DayJS>
       </td>
       <td>
+        <button className='btn btn-warning'>
+          <i className='fas fa-cog'></i>
+        </button>
         {!auth.loading && user === auth.user._id && (
           <button type='button' className='btn btn-danger' onClick={() => deleteGame(_id)}>
             <i className='fas fa-times'></i>
@@ -25,7 +28,7 @@ const GameItem = ({ auth, game: { _id, key, title, user, date }, deleteGame }) =
 };
 
 GameItem.propTypes = {
-  post: PropTypes.object.isRequired,
+  game: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   deleteGame: PropTypes.func.isRequired,
 };

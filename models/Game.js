@@ -35,25 +35,6 @@ const GameSchema = new mongoose.Schema({
   results: {
     type: [[Boolean]],
   },
-  tickets: [
-    {
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-      },
-      key: {
-        type: String,
-        required: true,
-      },
-      tips: {
-        type: [[Boolean]],
-      },
-      date: {
-        type: Date,
-        default: Date.now,
-      },
-    },
-  ],
   date: {
     type: Date,
     default: Date.now,

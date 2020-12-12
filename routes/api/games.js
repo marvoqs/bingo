@@ -4,9 +4,10 @@ const { check, validationResult } = require('express-validator');
 
 const auth = require('../../middleware/auth');
 
-const keys = require('../../utils/keys');
+const random = require('../../utils/random');
 
 const Game = require('../../models/Game');
+const Ticket = require('../../models/Ticket');
 
 // @route    GET api/games
 // @desc     Get all games
@@ -106,7 +107,7 @@ router.put('/stop/:game_id', auth, async (req, res) => {
 // @access  Public
 router.get('/key/:key', async (req, res) => {
   try {
-    const game = await Game.findOne({ key: req.params.key });
+    const game = await Game.findOne({ key: req.params.key }).select('_id timelimit numoftips template active');
 
     // Check if game exists
     if (!game) {
@@ -160,7 +161,7 @@ router.post(
 
     try {
       // Get unique key
-      const key = await keys.getGameKey();
+      const key = await random.getGameKey();
       // Build game object
       const newGame = new Game({
         user: req.user.id,
@@ -241,18 +242,18 @@ router.post(
     const { tips } = req.body;
 
     try {
-      const game = await Game.findById(req.params.game_id);
-      // Get unique key
-      const key = await keys.getTicketKey(req.params.game_id);
-      // Build ticket object
-      const newTicket = {
-        key,
-        tips,
-      };
+      // Get unique stamp
+      const stamp = await random.getTicketStamp();
 
-      game.tickets.unshift(newTicket);
-      await game.save();
-      res.json(game.tickets);
+      // Build ticket object
+      const newTicket = new Ticket({
+        game: req.params.game_id,
+        stamp,
+        tips,
+      });
+
+      const ticket = await newTicket.save();
+      return res.json(ticket);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error.');

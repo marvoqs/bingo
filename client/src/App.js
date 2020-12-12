@@ -7,6 +7,7 @@ import Admin from './components/admin/Admin';
 import Alert from './components/layout/Alert';
 import Navbar from './components/layout/Navbar';
 import AdminGames from './components/admin/games/Games';
+import AdminGame from './components/admin/game/Game';
 import CreateGame from './components/admin/game-forms/CreateGame';
 import AdminUsers from './components/admin/AdminUsers';
 import PrivateRoute from './components/routing/PrivateRoute';
@@ -40,10 +41,11 @@ const App = () => {
           <Switch>
             <Route exact path='/login' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route exact path='/game/:game_key' component={Game} />
+            <Route exact path='/game/:gameKey' component={Game} />
             <PrivateRoute exact path='/admin' component={Admin} />
             <PrivateRoute exact path='/admin/games' component={AdminGames} />
             <PrivateRoute exact path='/admin/games/create' component={CreateGame} />
+            <PrivateRoute exact path='/admin/game/:gameId' component={AdminGame} />
             <PrivateRoute exact path='/admin/users' component={AdminUsers} />
           </Switch>
         </section>

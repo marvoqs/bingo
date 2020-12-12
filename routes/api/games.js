@@ -51,9 +51,6 @@ router.put('/start/:game_id', auth, async (req, res) => {
       return res.status(404).json({ msg: 'Game not found.' });
     }
 
-    console.log('game user', game.user);
-    console.log('logged user', req.user.id);
-
     // Check if user is the owner of the game
     if (game.user != req.user.id) {
       return res.status(401).json({ msg: 'You have not permission to start this game.' });
@@ -209,7 +206,7 @@ router.put(
         return res.status(401).json({ msg: 'You have not permission to update results of this game.' });
       }
 
-      game.results = req.body.results;
+      game.results = req.body;
 
       await game.save();
 

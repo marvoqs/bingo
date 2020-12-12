@@ -14,10 +14,14 @@ const Games = ({ getGames, game: { games, loading } }) => {
     <Spinner />
   ) : (
     <>
-      <h2>Správa her</h2>
-      <Link to='/admin/games/create' className='btn btn-success'>
-        Vytvořit hru
-      </Link>
+      <div className='my-1'>
+        <div className='float-buttons'>
+          <Link to='/admin/games/create' className='btn btn-success'>
+            Vytvořit hru
+          </Link>
+        </div>
+        <h2>Správa her</h2>
+      </div>
       <table className='table'>
         <thead>
           <tr>

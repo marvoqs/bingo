@@ -46,7 +46,6 @@ const CreateGame = ({ createGame, history }) => {
     createGame(formData, template, history);
   };
 
-  console.log(template);
   return (
     <>
       <h2>Vytvořit hru</h2>

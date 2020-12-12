@@ -14,9 +14,9 @@ const GameItem = ({ auth, game: { _id, key, title, user, date }, deleteGame }) =
         <DayJS format='D. M. YYYY H:mm'>{date}</DayJS>
       </td>
       <td>
-        <button className='btn btn-warning'>
+        <Link to={`/admin/game/${_id}`} className='btn btn-warning'>
           <i className='fas fa-cog'></i>
-        </button>
+        </Link>
         {!auth.loading && user === auth.user._id && (
           <button type='button' className='btn btn-danger' onClick={() => deleteGame(_id)}>
             <i className='fas fa-times'></i>

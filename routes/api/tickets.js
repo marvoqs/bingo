@@ -8,7 +8,33 @@ const random = require('../../utils/random');
 
 const Ticket = require('../../models/Ticket');
 
-// @route   POST api/games/ticket/game_id
+// @route    GET api/tickets
+// @desc     Get all tickets
+// @access   Private
+router.get('/', auth, async (req, res) => {
+  try {
+    const tickets = await Ticket.find().sort({ date: -1 });
+    res.json(tickets);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error.');
+  }
+});
+
+// @route    GET api/tickets
+// @desc     Get tickets by game id
+// @access   Private
+router.get('/game/:game_id', auth, async (req, res) => {
+  try {
+    const tickets = await Ticket.find({ game: req.params.game_id }).sort({ date: -1 });
+    res.json(tickets);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error.');
+  }
+});
+
+// @route   POST api/tickets/game_id
 // @desc    Submit ticket
 // @access  Public
 router.post(

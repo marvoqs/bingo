@@ -36,19 +36,6 @@ img {
 }
 
 /* Utilities */
-.container {
-  max-width: 1100px;
-  margin: auto;
-  overflow: hidden;
-  padding: 0 2rem;
-  margin-top: 6rem;
-  margin-bottom: 3rem;
-}
-
-.float-buttons {
-  float: right;
-}
-
 .spinner {
   margin: 5rem auto;
   border: 0.8rem solid var(--dark-color);
@@ -276,49 +263,6 @@ button {
   font: inherit;
 }
 
-.table {
-  width: 100%;
-  table-layout: fixed;
-}
-
-.table th,
-.table td {
-  padding: 1rem;
-  text-align: left;
-}
-
-.table th {
-  background: var(--dark-color);
-}
-
-/* Navbar */
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.7rem 2rem;
-  position: fixed;
-  z-index: 1;
-  width: 100%;
-  top: 0;
-  border-bottom: solid 1px var(--primary-color);
-  opacity: 0.9;
-}
-
-.navbar ul {
-  display: flex;
-}
-
-.navbar a {
-  color: #fff;
-  padding: 0.45rem;
-  margin: 0 0.25rem;
-}
-
-.navbar a:hover {
-  color: var(--primary-color);
-}
-
 /* Bingo */
 .bingo {
   margin: 2rem auto;
@@ -344,14 +288,6 @@ button {
   box-sizing: border-box;
 }
 
-.bingo .tile.tip {
-  border: 2px solid var(--danger-color);
-}
-
-.bingo .tile.result {
-  background-color: #00688b;
-}
-
 .bingo .text {
   position: absolute;
   top: 0;
@@ -365,16 +301,17 @@ button {
   padding: 0.2rem;
 }
 
+.bingo .tile .text.tip {
+  border: 2px solid var(--danger-color);
+  box-sizing: border-box;
+}
+
+.bingo .tile .text.result {
+  background-color: #00688b;
+}
+
 /* Mobile Styles */
 @media (max-width: 700px) {
-  .container {
-    margin-top: 8rem;
-  }
-
-  .hide-sm {
-    display: none;
-  }
-
   /* Text Styles */
   .x-large {
     font-size: 3rem;
@@ -386,21 +323,6 @@ button {
 
   .lead {
     font-size: 1rem;
-  }
-
-  /* Navbar */
-  .navbar {
-    display: block;
-    text-align: center;
-  }
-
-  .navbar ul {
-    text-align: center;
-    justify-content: center;
-  }
-
-  .navbar h1 {
-    margin-bottom: 1rem;
   }
 
   /* Bingo */

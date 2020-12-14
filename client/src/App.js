@@ -13,7 +13,8 @@ import AdminUsers from './components/admin/AdminUsers';
 import PrivateRoute from './components/routing/PrivateRoute';
 
 // CSS
-import './App.css';
+import './styles/global.css';
+import './styles/admin.css';
 
 // Utils
 import setAuthToken from './utils/setAuthToken';

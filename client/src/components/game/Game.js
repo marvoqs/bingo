@@ -45,7 +45,7 @@ const Game = ({
     return <p>Taková hra neexistuje nebo aktuálně není aktivní.</p>;
   }
 
-  const { _id, timelimit, numoftips, active, template } = game;
+  const { _id, timelimit, numoftips, template } = game;
 
   const startGame = () => {
     setIsStarted(true);

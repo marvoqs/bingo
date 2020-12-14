@@ -70,8 +70,8 @@ const Game = ({
           <div key={rowIndex} className='row'>
             {row.map((column, colIndex) => (
               <div key={colIndex} className='column'>
-                <div className={results[rowIndex][colIndex] ? 'tile result' : 'tile'} onClick={() => handleTileClick(rowIndex, colIndex)}>
-                  <div className='text'>{template[rowIndex][colIndex]}</div>
+                <div className='tile' onClick={() => handleTileClick(rowIndex, colIndex)}>
+                  <div className={results[rowIndex][colIndex] ? 'text result' : 'text'}>{template[rowIndex][colIndex]}</div>
                 </div>
               </div>
             ))}

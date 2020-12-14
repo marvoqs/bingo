@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Tile = ({ value, isTip, isResult }) => {
-  let cssClass = 'tile';
+  let cssClass = 'text';
   if (isTip) {
     cssClass += ' tip';
   }
@@ -10,8 +10,8 @@ const Tile = ({ value, isTip, isResult }) => {
     cssClass += ' result';
   }
   return (
-    <div className={cssClass}>
-      <div className='text'>{value}</div>
+    <div className='tile'>
+      <div className={cssClass}>{value}</div>
     </div>
   );
 };

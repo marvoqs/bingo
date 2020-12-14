@@ -15,7 +15,7 @@ export const submitTicket = (gameId, tips) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post(`/api/games/ticket/${gameId}`, body, config);
+    const res = await axios.post(`/api/tickets/${gameId}`, body, config);
     dispatch({
       type: GET_TICKET,
       payload: res.data,

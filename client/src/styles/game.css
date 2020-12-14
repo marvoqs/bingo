@@ -1,0 +1,6 @@
+.game-container {
+  max-width: 1100px;
+  margin: 5% auto;
+  overflow: hidden;
+  text-align: center;
+}

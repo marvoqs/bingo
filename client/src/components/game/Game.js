@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+
+// Actions
 import { getGameByKey } from '../../actions/game';
 import { submitTicket } from '../../actions/ticket';
+
+// Components
 import Spinner from '../layout/Spinner';
 import Bingo from './Bingo';
 
+// Game component
 const Game = ({
   match: {
     params: { gameKey },

@@ -322,7 +322,6 @@ button {
 /* Bingo */
 .bingo {
   margin: 2rem auto;
-  width: max-content;
 }
 
 .bingo .row {

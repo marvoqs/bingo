@@ -14,5 +14,6 @@ export const ADD_GAME = 'ADD_GAME';
 export const UPDATE_GAME = 'UPDATE_GAME';
 export const DELETE_GAME = 'DELETE_GAME';
 export const GAME_ERROR = 'GAME_ERROR';
+export const GET_TICKETS = 'GET_TICKETS';
 export const GET_TICKET = 'GET_TICKET';
 export const TICKET_ERROR = 'TICKET_ERROR';

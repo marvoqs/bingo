@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createGame } from '../../../actions/game';
-import Bingo from '../../bingo/Bingo';
+import BingoForm from './BingoForm';
 
 const CreateGame = ({ createGame, history }) => {
   const [formData, setFormData] = useState({
@@ -78,7 +78,7 @@ const CreateGame = ({ createGame, history }) => {
             onChange={(e) => setTemplateSize({ ...templateSize, columns: e.target.value })}
           />
         </div>
-        <Bingo template={template} handleTemplateChange={handleTemplateChange} />
+        <BingoForm template={template} handleTemplateChange={handleTemplateChange} />
         <input type='submit' className='btn btn-primary my-1' value='Vytvořit' />
         <Link to='/admin/games' className='btn btn-light my-1'>
           Zrušit

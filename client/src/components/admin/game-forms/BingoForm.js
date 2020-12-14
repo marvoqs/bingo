@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Spinner from '../layout/Spinner';
+import Spinner from '../../layout/Spinner';
 
-const Bingo = ({ template, handleTemplateChange }) => {
+const BingoForm = ({ template, handleTemplateChange }) => {
   if (!template.length) {
     return <Spinner />;
   }
@@ -45,8 +45,8 @@ const Bingo = ({ template, handleTemplateChange }) => {
   );
 };
 
-Bingo.propTypes = {
+BingoForm.propTypes = {
   template: PropTypes.array.isRequired,
 };
 
-export default Bingo;
+export default BingoForm;

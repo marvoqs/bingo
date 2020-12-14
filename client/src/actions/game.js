@@ -29,6 +29,22 @@ export const getGameById = (id) => async (dispatch) => {
   }
 };
 
+// Get game by key
+export const getGameByKey = (key) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/games/key/${key}`);
+    dispatch({
+      type: GET_GAME,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GAME_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Add game
 export const createGame = (formData, template, history, edit = false) => async (dispatch) => {
   const config = {
@@ -70,8 +86,8 @@ export const startGame = (id) => async (dispatch) => {
       type: UPDATE_GAME,
       payload: res.data,
     });
-    navigator.clipboard.writeText(`${process.env.PUBLIC_URL}${res.data.key}`);
-    dispatch(setAlert(`Výdej tiketů byl spuštěn. Odkaz na hru je ${process.env.PUBLIC_URL}${res.data.key} a byl uložen do tvého klipboardu.`, 'success'));
+    navigator.clipboard.writeText(`www.something.com/game/${res.data.key}`);
+    dispatch(setAlert(`Výdej tiketů byl spuštěn. Odkaz na hru je www.something.com/game/${res.data.key} a byl uložen do tvého klipboardu.`, 'success'));
   } catch (err) {
     dispatch({
       type: GAME_ERROR,

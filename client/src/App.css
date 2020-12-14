@@ -342,6 +342,11 @@ button {
   padding-top: 50%;
   padding-bottom: 50%;
   position: relative;
+  box-sizing: border-box;
+}
+
+.bingo .tile.tip {
+  border: 2px solid var(--danger-color);
 }
 
 .bingo .tile.result {

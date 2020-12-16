@@ -65,6 +65,7 @@ const Game = ({
       <p>Časový limit: {timelimit} sekund</p>
 
       <Bingo template={template} results={results} handleTileClick={handleTileClick} />
+      <hr className='line' />
       <GameTickets />
     </>
   );

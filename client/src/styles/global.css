@@ -219,8 +219,9 @@ img {
 
 .line {
   height: 1px;
-  background: #ccc;
-  margin: 1.5rem 0;
+  background: var(--dark-color);
+  border: 0;
+  margin: 1rem 0;
 }
 
 /* Overlay */
@@ -234,8 +235,15 @@ img {
 }
 
 /* Forms */
+.form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
 .form .form-group {
-  margin: 1.2rem 0;
+  margin: 0.5rem 0;
+  width: 100%;
 }
 
 .form .form-text {
@@ -327,6 +335,11 @@ button {
 
   .lead {
     font-size: 1rem;
+  }
+
+  /* Form */
+  .form .form-row {
+    grid-template-columns: 1fr;
   }
 
   /* Bingo */

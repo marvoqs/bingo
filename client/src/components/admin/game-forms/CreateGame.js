@@ -8,8 +8,8 @@ import BingoForm from './BingoForm';
 const CreateGame = ({ createGame, history }) => {
   const [formData, setFormData] = useState({
     title: '',
-    timelimit: '',
-    numoftips: '',
+    timelimit: '15',
+    numoftips: '3',
   });
   const [templateSize, setTemplateSize] = useState({
     rows: 3,
@@ -51,32 +51,40 @@ const CreateGame = ({ createGame, history }) => {
       <h2>Vytvořit hru</h2>
       <form className='form my-1' onSubmit={(e) => handleSubmit(e)}>
         <div className='form-group'>
-          <input type='text' placeholder='Název' name='title' value={title} onChange={(e) => handleChange(e)} />
+          <label htmlFor='title'>Název:</label>
+          <input type='text' name='title' value={title} onChange={(e) => handleChange(e)} />
           <small className='form-text'>Název je jen označení pro tebe, hráči jej neuvidí.</small>
         </div>
-        <div className='form-group'>
-          <input type='number' placeholder='Časový limit' name='timelimit' value={timelimit} onChange={(e) => handleChange(e)} />
-          <small className='form-text'>Kolik vteřin budou hráči mít na své tipy.</small>
+        <div className='form-row'>
+          <div className='form-group'>
+            <label htmlFor='timelimit'>Časový limit:</label>
+            <input type='number' name='timelimit' value={timelimit} onChange={(e) => handleChange(e)} />
+            <small className='form-text'>Kolik vteřin budou hráči mít na své tipy.</small>
+          </div>
+          <div className='form-group'>
+            <label htmlFor='timelimit'>Počet tipů:</label>
+            <input type='number' name='numoftips' value={numoftips} onChange={(e) => handleChange(e)} />
+            <small className='form-text'>Kolik tipů bude hráč zadávat.</small>
+          </div>
         </div>
-        <div className='form-group'>
-          <input type='number' placeholder='Počet tipů' name='numoftips' value={numoftips} onChange={(e) => handleChange(e)} />
-          <small className='form-text'>Kolik tipů bude hráč zadávat.</small>
-        </div>
-
-        <div className='form-group'>
-          <label htmlFor='rowsInput'>Řádků:</label>
-          <input type='number' id='rowsInput' name='rows' value={rows} onChange={(e) => setTemplateSize({ ...templateSize, rows: e.target.value })} />
-        </div>
-        <div className='form-group'>
-          <label htmlFor='columnsInput'>Sloupců:</label>
-          <input
-            type='number'
-            placeholder='Počet sloupců'
-            id='columnsInput'
-            name='columns'
-            value={columns}
-            onChange={(e) => setTemplateSize({ ...templateSize, columns: e.target.value })}
-          />
+        <div className='form-row'>
+          <div className='form-group'>
+            <label htmlFor='rowsInput'>Řádků:</label>
+            <input type='number' id='rowsInput' name='rows' value={rows} onChange={(e) => setTemplateSize({ ...templateSize, rows: e.target.value })} />
+            <small className='form-text'>Kolik řádků bude tabulka mít.</small>
+          </div>
+          <div className='form-group'>
+            <label htmlFor='columnsInput'>Sloupců:</label>
+            <input
+              type='number'
+              placeholder='Počet sloupců'
+              id='columnsInput'
+              name='columns'
+              value={columns}
+              onChange={(e) => setTemplateSize({ ...templateSize, columns: e.target.value })}
+            />
+            <small className='form-text'>Kolik sloupců bude tabulka mít.</small>
+          </div>
         </div>
         <BingoForm template={template} handleTemplateChange={handleTemplateChange} />
         <input type='submit' className='btn btn-primary my-1' value='Vytvořit' />

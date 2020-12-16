@@ -36,10 +36,13 @@ const GameTickets = ({
         <p>Ještě nebyly vydány žádné tikety.</p>
       ) : (
         <>
-          <div className='float-buttons'>
-            <button className='btn btn-danger' onClick={() => deleteTickets(gameId)}>
-              Smazat tikety
-            </button>
+          <div className='my-1'>
+            <div className='float-buttons'>
+              <button className='btn btn-danger' onClick={() => deleteTickets(gameId)}>
+                Smazat tikety
+              </button>
+            </div>
+            <h2>Tikety</h2>
           </div>
           <table className='table'>
             <thead>

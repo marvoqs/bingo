@@ -9,7 +9,7 @@ const Bingo = ({ template, tips, results, handleTileClick }) => {
         <div key={rowIndex} className='row'>
           {row.map((column, colIndex) => (
             <div key={colIndex} className='column' onClick={() => handleTileClick(rowIndex, colIndex)}>
-              <Tile value={template[rowIndex][colIndex]} isTip={tips[rowIndex][colIndex]} isResult={results[rowIndex][colIndex]} />
+              <Tile value={template[rowIndex][colIndex]} isTip={tips ? tips[rowIndex][colIndex] : false} isResult={results[rowIndex][colIndex]} />
             </div>
           ))}
         </div>
@@ -20,7 +20,7 @@ const Bingo = ({ template, tips, results, handleTileClick }) => {
 
 Bingo.propTypes = {
   template: PropTypes.array.isRequired,
-  tips: PropTypes.array.isRequired,
+  tips: PropTypes.array,
   results: PropTypes.array.isRequired,
   handleTileClick: PropTypes.func.isRequired,
 };

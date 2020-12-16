@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { getGameById, startGame, stopGame, updateResults } from '../../../actions/game';
 import { getTickets } from '../../../actions/ticket';
 import Spinner from '../../layout/Spinner';
+import Bingo from '../../game/Bingo';
 import DayJS from 'react-dayjs';
 
 const Game = ({
@@ -65,19 +66,7 @@ const Game = ({
       <p>Počet tipů: {numoftips}</p>
       <p>Časový limit: {timelimit} sekund</p>
 
-      <div className='bingo'>
-        {template.map((row, rowIndex) => (
-          <div key={rowIndex} className='row'>
-            {row.map((column, colIndex) => (
-              <div key={colIndex} className='column'>
-                <div className='tile' onClick={() => handleTileClick(rowIndex, colIndex)}>
-                  <div className={results[rowIndex][colIndex] ? 'text result' : 'text'}>{template[rowIndex][colIndex]}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ))}
-      </div>
+      <Bingo template={template} results={results} handleTileClick={handleTileClick} />
       {!ticketLoading && tickets.length > 0 && (
         <table className='table'>
           <thead>

@@ -14,31 +14,26 @@ const Game = ({
   match: {
     params: { gameKey },
   },
-  game: { game, loading },
+  game: { game, loading: gameLoading },
+  ticket: { ticket, loading: ticketLoading },
   getGameByKey,
 }) => {
-  const [isStarted, setIsStarted] = useState(false);
-
   // Load game
   useEffect(() => {
     getGameByKey(gameKey);
   }, [getGameByKey, gameKey]);
 
   // Show spinner until game is loaded
-  if (loading) {
+  if (gameLoading) {
     return <Spinner />;
   }
 
   // Check if game exists
-  if (!loading && game === null) {
+  if (!gameLoading && game === null) {
     return <p>Taková hra neexistuje nebo aktuálně není aktivní.</p>;
   }
 
-  const startGame = () => {
-    setIsStarted(true);
-  };
-
-  return <>{!isStarted ? <GameIntro startGame={startGame} /> : <GameTicket />}</>;
+  return <>{ticket && ticket.game === game._id ? <GameTicket /> : <GameIntro />}</>;
 };
 
 const mapStateToProps = (state) => ({

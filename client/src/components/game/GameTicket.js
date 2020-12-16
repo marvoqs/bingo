@@ -10,13 +10,14 @@ import Spinner from '../layout/Spinner';
 import Bingo from './Bingo';
 
 // Game ticket component
-const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket }, submitTicket }) => {
+const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket, ticket: ticketLoading }, submitTicket }) => {
   const [countdown, setCountdown] = useState(0);
   const [tipCounter, setTipCounter] = useState(0);
   const [tips, setTips] = useState([]);
   const [results, setResults] = useState([]);
 
-  const { _id, timelimit, numoftips, template } = game;
+  const { timelimit, numoftips, template } = game;
+  const { _id: ticketId, stamp } = ticket;
 
   useEffect(() => {
     // Set initial tips array filled with false values
@@ -72,17 +73,17 @@ const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket }, 
 
   const handleTileClick = (rowIndex, colIndex) => {
     // If not ticket and countdown bigger than 0, mark tips
-    if (!ticket && countdown > 0) {
+    if (!ticket.tips.length && countdown > 0) {
       markTip(rowIndex, colIndex);
     }
     // If ticket, mark results
-    if (ticket) {
+    if (ticket.tips.length) {
       markResult(rowIndex, colIndex);
     }
   };
 
   const handleSubmit = () => {
-    submitTicket(_id, tips);
+    submitTicket(ticketId, tips);
     setCountdown(0);
   };
 
@@ -93,14 +94,7 @@ const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket }, 
 
   return (
     <>
-      {ticket ? (
-        <>
-          {/* If is ticket, mark the results */}
-          <p>Teď můžeš označovat výsledky.</p>
-          <Bingo template={template} tips={ticket.tips} results={results} handleTileClick={handleTileClick} />
-          <span className='stamp'>{ticket && ticket.stamp}</span>
-        </>
-      ) : (
+      {!ticket.tips.length ? (
         <>
           {/* If is not ticket, mark the tips */}
           {countdown > 0 ? <p>Zbývá {countdown} sekund.</p> : <p>Časový limit vypršel. Odevzdej svůj tiket, prosím.</p>}
@@ -108,6 +102,13 @@ const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket }, 
           <button className='btn btn-success' onClick={() => handleSubmit()}>
             Odevzdat tiket
           </button>
+        </>
+      ) : (
+        <>
+          {/* If is ticket, mark the results */}
+          <p>Teď můžeš označovat výsledky.</p>
+          <Bingo template={template} tips={ticket.tips} results={results} handleTileClick={handleTileClick} />
+          <span className='stamp'>{stamp}</span>
         </>
       )}
     </>

@@ -34,7 +34,24 @@ export const deleteTickets = (gameId = null) => async (dispatch) => {
   }
 };
 
-export const submitTicket = (gameId, tips) => async (dispatch) => {
+// Get new ticket
+export const getTicket = (gameId) => async (dispatch) => {
+  try {
+    const res = await axios.post(`/api/tickets/${gameId}`);
+    dispatch({
+      type: GET_TICKET,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: TICKET_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Submit ticket
+export const submitTicket = (ticketId, tips) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -46,12 +63,11 @@ export const submitTicket = (gameId, tips) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post(`/api/tickets/${gameId}`, body, config);
+    const res = await axios.put(`/api/tickets/${ticketId}`, body, config);
     dispatch({
       type: GET_TICKET,
       payload: res.data,
     });
-    dispatch(setAlert('Ticket byl odevzdán. Teď můžeš označovat výsledky.', 'success'));
   } catch (err) {
     dispatch({
       type: TICKET_ERROR,
@@ -59,3 +75,30 @@ export const submitTicket = (gameId, tips) => async (dispatch) => {
     });
   }
 };
+
+// // Submit ticket
+// export const submitTicket = (gameId, tips) => async (dispatch) => {
+//   const config = {
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   };
+
+//   const body = {
+//     tips,
+//   };
+
+//   try {
+//     const res = await axios.post(`/api/tickets/${gameId}`, body, config);
+//     dispatch({
+//       type: GET_TICKET,
+//       payload: res.data,
+//     });
+//     dispatch(setAlert('Ticket byl odevzdán. Teď můžeš označovat výsledky.', 'success'));
+//   } catch (err) {
+//     dispatch({
+//       type: TICKET_ERROR,
+//       payload: { msg: err.response.statusText, status: err.response.status },
+//     });
+//   }
+// };

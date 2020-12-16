@@ -48,10 +48,31 @@ router.delete('/game/:game_id', auth, async (req, res) => {
 });
 
 // @route   POST api/tickets/game_id
+// @desc    Get new ticket
+// @access  Public
+router.post('/:game_id', async (req, res) => {
+  try {
+    // Get unique stamp
+    const stamp = await random.getTicketStamp();
+
+    // Build ticket object
+    const newTicket = new Ticket({
+      game: req.params.game_id,
+      stamp,
+    });
+    const ticket = await newTicket.save();
+    return res.json(ticket);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error.');
+  }
+});
+
+// @route   PUT api/tickets/game_id
 // @desc    Submit ticket
 // @access  Public
-router.post(
-  '/:game_id',
+router.put(
+  '/:ticket_id',
   [
     check('tips', 'Tips are required before submitting the ticket.').not().isEmpty(),
     check('tips[*]', 'Tips has to be an array of arrays.').isArray(),
@@ -63,20 +84,16 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { tips } = req.body;
-
     try {
-      // Get unique stamp
-      const stamp = await random.getTicketStamp();
+      const ticket = await Ticket.findById(req.params.ticket_id);
+      if (!ticket) {
+        return res.status(404).json({ msg: 'Ticket not found.' });
+      }
 
-      // Build ticket object
-      const newTicket = new Ticket({
-        game: req.params.game_id,
-        stamp,
-        tips,
-      });
+      ticket.tips = req.body.tips;
 
-      const ticket = await newTicket.save();
+      await ticket.save();
+
       return res.json(ticket);
     } catch (err) {
       console.error(err.message);

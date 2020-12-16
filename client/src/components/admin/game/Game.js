@@ -2,35 +2,38 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+// Actions
 import { getGameById, startGame, stopGame, updateResults } from '../../../actions/game';
-import { getTickets } from '../../../actions/ticket';
+
+// Components
 import Spinner from '../../layout/Spinner';
 import Bingo from '../../game/Bingo';
-import DayJS from 'react-dayjs';
+import GameTickets from './GameTickets';
 
+// Admin game component
 const Game = ({
   match: {
     params: { gameId },
   },
-  game: { game, gameLoading },
-  ticket: { tickets, ticketLoading },
+  game: { game, loading },
   getGameById,
   updateResults,
   startGame,
   stopGame,
-  getTickets,
 }) => {
   useEffect(() => {
     getGameById(gameId);
   }, [getGameById, gameId]);
 
-  if (game === null || gameLoading) {
+  if (game === null || loading) {
     return <Spinner />;
   }
 
   const { _id, timelimit, numoftips, active, template, results, title } = game;
 
   const handleTileClick = (rowIndex, colIndex) => {
+    // Update results in db after every click
     const newResults = results.map((row, index) =>
       index === rowIndex ? row.map((column, index) => (index === colIndex ? !results[rowIndex][colIndex] : column)) : row
     );
@@ -46,12 +49,7 @@ const Game = ({
         <div className='float-buttons'>
           <button className='btn btn-warning'>Editovat hru</button>
           {active ? (
-            <button
-              className='btn btn-danger'
-              onClick={() => {
-                stopGame(_id);
-                setTimeout(() => getTickets(_id), timelimit * 1000);
-              }}>
+            <button className='btn btn-danger' onClick={() => stopGame(_id)}>
               Ukončit výdej tiketů
             </button>
           ) : (
@@ -67,43 +65,21 @@ const Game = ({
       <p>Časový limit: {timelimit} sekund</p>
 
       <Bingo template={template} results={results} handleTileClick={handleTileClick} />
-      {!ticketLoading && tickets.length > 0 && (
-        <table className='table'>
-          <thead>
-            <tr>
-              <th>Razítko</th>
-              <th className='hide-sm'>Odevzdáno</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {tickets.map(({ stamp, tips, date }) => (
-              <tr>
-                <td>{stamp}</td>
-                <td className='hide-sm'>
-                  <DayJS format='D. M. YYYY H:mm'>{date}</DayJS>
-                </td>
-                <td>{JSON.stringify(tips) == JSON.stringify(results) && <span>BINGO!</span>}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <GameTickets />
     </>
   );
 };
 
 Game.propTypes = {
+  game: PropTypes.object.isRequired,
   getGameById: PropTypes.func.isRequired,
   updateResults: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
   stopGame: PropTypes.func.isRequired,
-  getTickets: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   game: state.game,
-  ticket: state.ticket,
 });
 
-export default connect(mapStateToProps, { getGameById, startGame, stopGame, updateResults, getTickets })(Game);
+export default connect(mapStateToProps, { getGameById, startGame, stopGame, updateResults })(Game);

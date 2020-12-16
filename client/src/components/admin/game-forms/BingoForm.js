@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../../layout/Spinner';
 
+// Bingo form component
 const BingoForm = ({ template, handleTemplateChange }) => {
   if (!template.length) {
     return <Spinner />;
@@ -31,6 +32,7 @@ const BingoForm = ({ template, handleTemplateChange }) => {
 
 BingoForm.propTypes = {
   template: PropTypes.array.isRequired,
+  handleTemplateChange: PropTypes.func.isRequired,
 };
 
 export default BingoForm;

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tile from './Tile';
 
+// Bingo component
 const Bingo = ({ template, tips, results, handleTileClick }) => {
   return (
     <div className='bingo'>

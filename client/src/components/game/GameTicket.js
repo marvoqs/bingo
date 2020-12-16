@@ -9,6 +9,7 @@ import { submitTicket } from '../../actions/ticket';
 import Spinner from '../layout/Spinner';
 import Bingo from './Bingo';
 
+// Game ticket component
 const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket }, submitTicket }) => {
   const [countdown, setCountdown] = useState(0);
   const [tipCounter, setTipCounter] = useState(0);

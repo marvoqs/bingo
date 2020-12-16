@@ -7,16 +7,11 @@ const BingoForm = ({ template, handleTemplateChange }) => {
     return <Spinner />;
   }
 
-  const rowStyle = {
-    display: 'flex',
-    justifyContent: 'flex-start',
-  };
-
   return (
     <div className='bingo'>
       {template.map((row, rowIndex) => (
         <div key={rowIndex} className='row'>
-          {row.map((column, colIndex) => (
+          {row.map((_, colIndex) => (
             <div key={colIndex} className='column'>
               <div className='tile'>
                 <textarea

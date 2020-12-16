@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const GameIntro = ({ game: { game, loading }, startGame }) => {
+const GameIntro = ({ game: { game }, startGame }) => {
   const { timelimit, numoftips } = game;
   return (
     <>

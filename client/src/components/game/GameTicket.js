@@ -9,8 +9,9 @@ import { submitTicket } from '../../actions/ticket';
 import Spinner from '../layout/Spinner';
 import Bingo from './Bingo';
 
-const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket, loading: ticketLoading }, submitTicket }) => {
-  const [counter, setCounter] = useState(0);
+const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket }, submitTicket }) => {
+  const [countdown, setCountdown] = useState(0);
+  const [tipCounter, setTipCounter] = useState(0);
   const [tips, setTips] = useState([]);
   const [results, setResults] = useState([]);
 
@@ -24,51 +25,68 @@ const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket, lo
   }, [setTips, setResults, template]);
 
   useEffect(() => {
-    // Set counter to time limit value
-    setCounter(timelimit);
-  }, [setCounter, timelimit]);
+    // Update tip counter
+    setTipCounter(tips.flat().filter(Boolean).length);
+  }, [tips, setTipCounter]);
 
   useEffect(() => {
-    // Set counter interval
-    const counterInterval = setInterval(() => {
-      if (counter > 0) {
-        setCounter(counter - 1);
+    // Set countdown to time limit value
+    setCountdown(timelimit);
+  }, [setCountdown, timelimit]);
+
+  useEffect(() => {
+    // Set countdown interval
+    const countdownInterval = setInterval(() => {
+      if (countdown > 0) {
+        setCountdown(countdown - 1);
       }
     }, 1000);
 
-    // Clear counter interval
+    // Clear countdown interval
     return () => {
-      clearInterval(counterInterval);
+      clearInterval(countdownInterval);
     };
   });
 
-  const handleTileClick = (rowIndex, colIndex) => {
-    // If not ticket and counter bigger than 0, mark tips
-    if (!ticket && counter > 0) {
-      //const numOfTips = tips.flat().filter(Boolean).length;
-      //if (numOfTips < numoftips) {
+  const markTip = (rowIndex, colIndex) => {
+    if (tipCounter < numoftips) {
+      // If new tips allowed, set the value of clicked tile to opposite than is it
       const newTips = tips.map((row, index) =>
         index === rowIndex ? row.map((column, index) => (index === colIndex ? !tips[rowIndex][colIndex] : column)) : row
       );
       setTips(newTips);
-      //}
+    } else {
+      // If new tips are not allowed, set the value of clicked tile to false
+      const newTips = tips.map((row, index) => (index === rowIndex ? row.map((column, index) => (index === colIndex ? false : column)) : row));
+      setTips(newTips);
+    }
+  };
+
+  const markResult = (rowIndex, colIndex) => {
+    const newResults = results.map((row, index) =>
+      index === rowIndex ? row.map((column, index) => (index === colIndex ? !results[rowIndex][colIndex] : column)) : row
+    );
+    setResults(newResults);
+  };
+
+  const handleTileClick = (rowIndex, colIndex) => {
+    // If not ticket and countdown bigger than 0, mark tips
+    if (!ticket && countdown > 0) {
+      markTip(rowIndex, colIndex);
     }
     // If ticket, mark results
     if (ticket) {
-      const newResults = results.map((row, index) =>
-        index === rowIndex ? row.map((column, index) => (index === colIndex ? !results[rowIndex][colIndex] : column)) : row
-      );
-      setResults(newResults);
+      markResult(rowIndex, colIndex);
     }
   };
 
   const handleSubmit = () => {
     submitTicket(_id, tips);
-    setCounter(0);
+    setCountdown(0);
   };
 
   // If anything is not ready, show spinner
-  if (gameLoading || tips.length === 0 || results.length === 0) {
+  if (gameLoading || !tips.length || !results.length) {
     return <Spinner />;
   }
 
@@ -76,13 +94,15 @@ const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket, lo
     <>
       {ticket ? (
         <>
+          {/* If is ticket, mark the results */}
           <p>Teď můžeš označovat výsledky.</p>
           <Bingo template={template} tips={ticket.tips} results={results} handleTileClick={handleTileClick} />
           <span className='stamp'>{ticket && ticket.stamp}</span>
         </>
       ) : (
         <>
-          {counter > 0 ? <p>Zbývá {counter} sekund.</p> : <p>Časový limit vypršel. Odevzdej svůj tiket, prosím.</p>}
+          {/* If is not ticket, mark the tips */}
+          {countdown > 0 ? <p>Zbývá {countdown} sekund.</p> : <p>Časový limit vypršel. Odevzdej svůj tiket, prosím.</p>}
           <Bingo template={template} tips={tips} results={results} handleTileClick={handleTileClick} />
           <button className='btn btn-success' onClick={() => handleSubmit()}>
             Odevzdat tiket

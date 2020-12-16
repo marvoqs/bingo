@@ -94,22 +94,13 @@ const Game = ({
           <p>
             Po obdržení tiketu budeš mít {timelimit} sekund, abys označil {numoftips} políček.
           </p>
-          <button className='btn btn-primary' onClick={() => startGame()}>
+          <button className='btn btn-primary my-2' onClick={() => startGame()}>
             Získat tiket
           </button>
         </>
       ) : (
         <>
           <div className='my-2'>
-            <div className='float-buttons'>
-              {!ticket ? (
-                <button className='btn btn-success' onClick={() => handleSubmit()}>
-                  Odevzdat tiket
-                </button>
-              ) : (
-                <span>{ticket && ticket.stamp}</span>
-              )}
-            </div>
             {ticket ? (
               <p>Teď můžeš označovat výsledky.</p>
             ) : counter > 0 ? (
@@ -119,6 +110,13 @@ const Game = ({
             )}
           </div>
           <Bingo template={template} tips={ticket ? ticket.tips : tips} results={results} handleTileClick={handleTileClick} />
+          {!ticket ? (
+            <button className='btn btn-success' onClick={() => handleSubmit()}>
+              Odevzdat tiket
+            </button>
+          ) : (
+            <span className='stamp'>{ticket && ticket.stamp}</span>
+          )}
         </>
       )}
     </>

@@ -34,6 +34,19 @@ router.get('/game/:game_id', auth, async (req, res) => {
   }
 });
 
+// @route    DELETE api/tickets
+// @desc     Delete tickets by game id
+// @access   Private
+router.delete('/game/:game_id', auth, async (req, res) => {
+  try {
+    await Ticket.deleteMany({ game: req.params.game_id });
+    res.json({ msg: 'Tickets deleted.' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error.');
+  }
+});
+
 // @route   POST api/tickets/game_id
 // @desc    Submit ticket
 // @access  Public

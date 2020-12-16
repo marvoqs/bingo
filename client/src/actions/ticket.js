@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alert';
 
-import { GET_TICKETS, GET_TICKET, TICKET_ERROR } from './types';
+import { GET_TICKETS, GET_TICKET, DELETE_TICKETS, TICKET_ERROR } from './types';
 
 // Get tickets
 export const getTickets = (gameId = null) => async (dispatch) => {
@@ -14,6 +14,23 @@ export const getTickets = (gameId = null) => async (dispatch) => {
     dispatch({ type: GET_TICKETS, payload: res.data });
   } catch (err) {
     dispatch({ type: TICKET_ERROR, payload: { msg: err.response.statusText, status: err.response.status } });
+  }
+};
+
+// Delete tickets
+export const deleteTickets = (gameId = null) => async (dispatch) => {
+  if (window.confirm('Opravdu chceš smazat všechny tikety? Už to nejde vrátit.')) {
+    let endpoint = '/api/tickets';
+    if (gameId) {
+      endpoint = `/api/tickets/game/${gameId}`;
+    }
+    try {
+      const res = await axios.delete(endpoint);
+      dispatch({ type: DELETE_TICKETS, payload: res.data });
+      dispatch(setAlert('Tikety byly smazány.', 'success'));
+    } catch (err) {
+      dispatch({ type: TICKET_ERROR, payload: { msg: err.response.statusText, status: err.response.status } });
+    }
   }
 };
 

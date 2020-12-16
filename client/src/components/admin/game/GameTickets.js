@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Actions
-import { getTickets } from '../../../actions/ticket';
+import { getTickets, deleteTickets } from '../../../actions/ticket';
 
 // Components
 import Spinner from '../../layout/Spinner';
@@ -18,6 +18,7 @@ const GameTickets = ({
   },
   ticket: { tickets, loading },
   getTickets,
+  deleteTickets,
 }) => {
   useEffect(() => {
     // Check for tickets every 5 seconds
@@ -34,26 +35,33 @@ const GameTickets = ({
       {!tickets.length ? (
         <p>Ještě nebyly vydány žádné tikety.</p>
       ) : (
-        <table className='table'>
-          <thead>
-            <tr>
-              <th>Razítko</th>
-              <th className='hide-sm'>Odevzdáno</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {tickets.map(({ _id, stamp, tips, date }) => (
-              <tr key={_id}>
-                <td>{stamp}</td>
-                <td className='hide-sm'>
-                  <DayJS format='D. M. YYYY H:mm'>{date}</DayJS>
-                </td>
-                <td>{JSON.stringify(tips) === JSON.stringify(results) && <span>BINGO!</span>}</td>
+        <>
+          <div className='float-buttons'>
+            <button className='btn btn-danger' onClick={() => deleteTickets(gameId)}>
+              Smazat tikety
+            </button>
+          </div>
+          <table className='table'>
+            <thead>
+              <tr>
+                <th>Razítko</th>
+                <th className='hide-sm'>Odevzdáno</th>
+                <th />
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {tickets.map(({ _id, stamp, tips, date }) => (
+                <tr key={_id}>
+                  <td>{stamp}</td>
+                  <td className='hide-sm'>
+                    <DayJS format='D. M. YYYY H:mm'>{date}</DayJS>
+                  </td>
+                  <td>{JSON.stringify(tips) === JSON.stringify(results) && <span>BINGO!</span>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
       )}
     </>
   );
@@ -70,4 +78,4 @@ const mapStateToProps = (state) => ({
   ticket: state.ticket,
 });
 
-export default connect(mapStateToProps, { getTickets })(GameTickets);
+export default connect(mapStateToProps, { getTickets, deleteTickets })(GameTickets);

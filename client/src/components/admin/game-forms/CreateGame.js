@@ -52,7 +52,7 @@ const CreateGame = ({ createGame, history }) => {
       <form className='form my-1' onSubmit={(e) => handleSubmit(e)}>
         <div className='form-group'>
           <input type='text' placeholder='Název' name='title' value={title} onChange={(e) => handleChange(e)} />
-          <small className='form-text'>Název je jen označení pro tebe, hráši jej neuvidí.</small>
+          <small className='form-text'>Název je jen označení pro tebe, hráči jej neuvidí.</small>
         </div>
         <div className='form-group'>
           <input type='number' placeholder='Časový limit' name='timelimit' value={timelimit} onChange={(e) => handleChange(e)} />

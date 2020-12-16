@@ -50,7 +50,7 @@ const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket }, 
 
   const markTip = (rowIndex, colIndex) => {
     if (tipCounter < numoftips) {
-      // If new tips allowed, set the value of clicked tile to opposite than is it
+      // If new tips allowed, set the value of clicked tile to opposite than it is
       const newTips = tips.map((row, index) =>
         index === rowIndex ? row.map((column, index) => (index === colIndex ? !tips[rowIndex][colIndex] : column)) : row
       );

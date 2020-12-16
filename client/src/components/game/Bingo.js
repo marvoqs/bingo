@@ -9,7 +9,11 @@ const Bingo = ({ template, tips, results, handleTileClick }) => {
         <div key={rowIndex} className='row'>
           {row.map((column, colIndex) => (
             <div key={colIndex} className='column' onClick={() => handleTileClick(rowIndex, colIndex)}>
-              <Tile value={template[rowIndex][colIndex]} isTip={tips ? tips[rowIndex][colIndex] : false} isResult={results[rowIndex][colIndex]} />
+              <Tile
+                value={template[rowIndex][colIndex]}
+                isTip={tips ? tips[rowIndex][colIndex] : false}
+                isResult={results ? results[rowIndex][colIndex] : false}
+              />
             </div>
           ))}
         </div>

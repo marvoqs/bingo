@@ -28,6 +28,20 @@ const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket, lo
     setCounter(timelimit);
   }, [setCounter, timelimit]);
 
+  useEffect(() => {
+    // Set counter interval
+    const counterInterval = setInterval(() => {
+      if (counter > 0) {
+        setCounter(counter - 1);
+      }
+    }, 1000);
+
+    // Clear counter interval
+    return () => {
+      clearInterval(counterInterval);
+    };
+  });
+
   const handleTileClick = (rowIndex, colIndex) => {
     // If not ticket and counter bigger than 0, mark tips
     if (!ticket && counter > 0) {
@@ -52,18 +66,6 @@ const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket, lo
     submitTicket(_id, tips);
     setCounter(0);
   };
-
-  useEffect(() => {
-    const counterInterval = setInterval(() => {
-      if (counter > 0) {
-        setCounter(counter - 1);
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(counterInterval);
-    };
-  });
 
   // If anything is not ready, show spinner
   if (gameLoading || tips.length === 0 || results.length === 0) {

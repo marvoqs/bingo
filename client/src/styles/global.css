@@ -281,7 +281,6 @@ button {
 }
 
 .bingo .tile {
-  background-color: #444444;
   width: 100%;
   padding-top: 50%;
   padding-bottom: 50%;
@@ -290,6 +289,10 @@ button {
 }
 
 .bingo .text {
+  background-color: #444444;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
   position: absolute;
   top: 0;
   left: 0;

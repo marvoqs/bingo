@@ -13,30 +13,19 @@ const BingoForm = ({ template, handleTemplateChange }) => {
   };
 
   return (
-    <div>
+    <div className='bingo'>
       {template.map((row, rowIndex) => (
-        <div key={rowIndex} style={rowStyle}>
+        <div key={rowIndex} className='row'>
           {row.map((column, colIndex) => (
-            <div key={colIndex} style={{ backgroundColor: '#444444', margin: '5px', width: '150px', height: '150px', position: 'relative' }}>
-              <textarea
-                style={{
-                  position: 'absolute',
-                  top: '0',
-                  left: '0',
-                  bottom: '0',
-                  right: '0',
-                  width: '100%',
-                  textAlign: 'center',
-                  fontSize: '1.2rem',
-                  backgroundColor: 'inherit',
-                  border: 'none',
-                  color: 'inherit',
-                  fontFamily: 'inherit',
-                }}
-                data-rowindex={rowIndex}
-                data-colindex={colIndex}
-                onChange={(e) => handleTemplateChange(e)}
-                value={template[rowIndex][colIndex]}></textarea>
+            <div key={colIndex} className='column'>
+              <div className='tile'>
+                <textarea
+                  className='text'
+                  data-rowindex={rowIndex}
+                  data-colindex={colIndex}
+                  onChange={(e) => handleTemplateChange(e)}
+                  value={template[rowIndex][colIndex]}></textarea>
+              </div>
             </div>
           ))}
         </div>

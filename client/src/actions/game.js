@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { setAlert } from './alert';
 
-import { GET_GAMES, GET_GAME, ADD_GAME, UPDATE_GAME, DELETE_GAME, GAME_ERROR } from './types';
+import { GET_GAMES, GET_GAME, ADD_GAME, UPDATE_GAME, CLEAR_GAME, DELETE_GAME, GAME_ERROR } from './types';
 
 // Get games
 export const getGames = () => async (dispatch) => {
@@ -15,6 +15,7 @@ export const getGames = () => async (dispatch) => {
 
 // Get game by ID
 export const getGameById = (id) => async (dispatch) => {
+  dispatch({ type: CLEAR_GAME });
   try {
     const res = await axios.get(`/api/games/id/${id}`);
     dispatch({
@@ -31,6 +32,7 @@ export const getGameById = (id) => async (dispatch) => {
 
 // Get game by key
 export const getGameByKey = (key) => async (dispatch) => {
+  dispatch({ type: CLEAR_GAME });
   try {
     const res = await axios.get(`/api/games/key/${key}`);
     dispatch({
@@ -47,6 +49,7 @@ export const getGameByKey = (key) => async (dispatch) => {
 
 // Get pinned game
 export const getPinnedGame = () => async (dispatch) => {
+  dispatch({ type: CLEAR_GAME });
   try {
     const res = await axios.get(`/api/games/pinned`);
     dispatch({

@@ -11,11 +11,10 @@ import PrivateRoute from './PrivateRoute';
 // Route Components
 import Login from '../auth/Login';
 import Register from '../auth/Register';
-import Admin from '../admin/Admin';
 import AdminGames from '../admin/games/Games';
 import AdminGame from '../admin/game/Game';
 import CreateGame from '../admin/game-forms/CreateGame';
-import AdminUsers from '../admin/AdminUsers';
+import AdminUsers from '../admin/users/Users';
 
 // CSS
 import '../../styles/admin.css';
@@ -29,7 +28,7 @@ const Routes = () => {
         <Switch>
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
-          <PrivateRoute exact path='/admin' component={Admin} />
+          <PrivateRoute exact path='/admin' component={AdminGames} />
           <PrivateRoute exact path='/admin/games' component={AdminGames} />
           <PrivateRoute exact path='/admin/games/create' component={CreateGame} />
           <PrivateRoute exact path='/admin/game/:gameId' component={AdminGame} />

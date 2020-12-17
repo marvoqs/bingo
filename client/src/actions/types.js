@@ -19,3 +19,5 @@ export const GET_TICKETS = 'GET_TICKETS';
 export const GET_TICKET = 'GET_TICKET';
 export const DELETE_TICKETS = 'DELETE_TICKETS';
 export const TICKET_ERROR = 'TICKET_ERROR';
+export const GET_USERS = 'GET_USERS';
+export const USER_ERROR = 'USER_ERROR';

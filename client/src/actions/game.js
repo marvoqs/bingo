@@ -141,8 +141,13 @@ export const startGame = (id) => async (dispatch) => {
       type: UPDATE_GAME,
       payload: res.data,
     });
-    navigator.clipboard.writeText(`www.something.com/game/${res.data.key}`);
-    dispatch(setAlert(`Výdej tiketů byl spuštěn. Odkaz na hru je www.something.com/game/${res.data.key} a byl uložen do tvého klipboardu.`, 'success'));
+
+    const { pinned, key } = res.data;
+    const url = pinned ? window.location.host : `${window.location.host}/game/${key}`;
+
+    navigator.clipboard.writeText(url);
+
+    dispatch(setAlert(`Výdej tiketů byl spuštěn. Odkaz na hru je ${url} a byl uložen do tvého klipboardu.`, 'success'));
   } catch (err) {
     dispatch({
       type: GAME_ERROR,

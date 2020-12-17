@@ -46,7 +46,7 @@ router.get('/id/:game_id', auth, async (req, res) => {
 // @access  Private
 router.get('/pinned', auth, async (req, res) => {
   try {
-    const game = await Game.findOne({ pinned: true });
+    const game = await Game.findOne({ pinned: true, active: true });
     if (!game) {
       return res.status(404).json({ msg: 'There is no pinned game.' });
     }

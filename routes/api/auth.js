@@ -10,7 +10,7 @@ const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
 // @route    GET api/auth
-// @desc     Test route
+// @desc     Get user
 // @access   Private
 router.get('/', auth, async (req, res) => {
   try {
@@ -45,6 +45,10 @@ router.post('/', [check('email', 'Please enter your e-mail.').exists(), check('p
     if (!isMatch) {
       return res.status(400).json({ errors: [{ msg: 'Invalid credentials.' }] });
     }
+
+    // Save last log date
+    user.lastlog = Date.now();
+    await user.save();
 
     // Generate and return jsonwebtoken
     const payload = {

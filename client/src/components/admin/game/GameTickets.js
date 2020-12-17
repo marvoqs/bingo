@@ -7,9 +7,7 @@ import { getTickets, deleteTickets } from '../../../actions/ticket';
 
 // Components
 import Spinner from '../../layout/Spinner';
-
-// Utilities
-import DayJS from 'react-dayjs';
+import TicketItem from './TicketItem';
 
 // Admin game tickets component
 const GameTickets = ({
@@ -53,14 +51,8 @@ const GameTickets = ({
               </tr>
             </thead>
             <tbody>
-              {tickets.map(({ _id, stamp, tips, date }) => (
-                <tr key={_id}>
-                  <td>{stamp}</td>
-                  <td className='hide-sm'>
-                    <DayJS format='D. M. YYYY H:mm'>{date}</DayJS>
-                  </td>
-                  <td>{JSON.stringify(tips) === JSON.stringify(results) && <span>BINGO!</span>}</td>
-                </tr>
+              {tickets.map((ticket) => (
+                <TicketItem key={ticket._id} ticket={ticket} />
               ))}
             </tbody>
           </table>

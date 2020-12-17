@@ -13,7 +13,7 @@ const Ticket = require('../../models/Ticket');
 // @access   Private
 router.get('/', auth, async (req, res) => {
   try {
-    const tickets = await Ticket.find().sort({ date: -1 });
+    const tickets = await Ticket.find().sort({ submitdate: -1 });
     res.json(tickets);
   } catch (err) {
     console.error(err.message);

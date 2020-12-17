@@ -16,11 +16,11 @@ const Users = ({ getUsers, user: { users, loading } }) => {
   ) : (
     <>
       <div className='my-1'>
-        <div className='float-buttons'>
+        {/* <div className='float-buttons'>
           <Link to='/admin/users/create' className='btn btn-success'>
             Vytvořit účet
           </Link>
-        </div>
+        </div> */}
         <h2>Správa účtů</h2>
       </div>
       <table className='table'>

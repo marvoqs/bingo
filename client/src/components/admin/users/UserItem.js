@@ -11,11 +11,9 @@ const UserItem = ({ user: { _id, name, email, lastlog } }) => {
       <td className='hide-sm'>
         <DayJS format='D. M. YYYY H:mm'>{lastlog}</DayJS>
       </td>
-      <td>
-        <Link to={`/admin/user/${_id}`} className='btn btn-warning'>
+      <td>{/*<Link to={`/admin/user/${_id}`} className='btn btn-warning'>
           <i className='fas fa-cog'></i>
-        </Link>
-      </td>
+        </Link>*/}</td>
     </tr>
   );
 };

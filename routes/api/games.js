@@ -41,6 +41,85 @@ router.get('/id/:game_id', auth, async (req, res) => {
   }
 });
 
+// @route   GET api/games/pinned
+// @desc    Get pinned game
+// @access  Private
+router.get('/pinned', auth, async (req, res) => {
+  try {
+    const game = await Game.findOne({ pinned: true });
+    if (!game) {
+      return res.status(404).json({ msg: 'There is no pinned game.' });
+    }
+    res.json(game);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error.');
+  }
+});
+
+// @route   PUT api/games/pin/:game_id
+// @desc    Pin game
+// @access  Private
+router.put('/pin/:game_id', auth, async (req, res) => {
+  try {
+    const game = await Game.findById(req.params.game_id);
+    if (!game) {
+      return res.status(404).json({ msg: 'Game not found.' });
+    }
+
+    // Check if user is the owner of the game
+    if (game.user != req.user.id) {
+      return res.status(401).json({ msg: 'You have not permission to pin this game.' });
+    }
+
+    // Unpin all games
+    await Game.updateMany({}, { $set: { pinned: false } });
+
+    game.pinned = true;
+
+    await game.save();
+
+    res.json(game);
+  } catch (err) {
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Game not found.' });
+    } else {
+      console.error(err.message);
+      res.status(500).send('Server error.');
+    }
+  }
+});
+
+// @route   PUT api/games/unpin/:game_id
+// @desc    Unpin game
+// @access  Private
+router.put('/unpin/:game_id', auth, async (req, res) => {
+  try {
+    const game = await Game.findById(req.params.game_id);
+    if (!game) {
+      return res.status(404).json({ msg: 'Game not found.' });
+    }
+
+    // Check if user is the owner of the game
+    if (game.user != req.user.id) {
+      return res.status(401).json({ msg: 'You have not permission to unpin this game.' });
+    }
+
+    game.pinned = false;
+
+    await game.save();
+
+    res.json(game);
+  } catch (err) {
+    if (err.kind === 'ObjectId') {
+      return res.status(404).json({ msg: 'Game not found.' });
+    } else {
+      console.error(err.message);
+      res.status(500).send('Server error.');
+    }
+  }
+});
+
 // @route   PUT api/games/start/:game_id
 // @desc    Start game
 // @access  Private

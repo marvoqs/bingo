@@ -7,6 +7,7 @@ import Routes from './components/routing/Routes';
 
 // Components
 import Game from './components/game/Game';
+import GamePinned from './components/game/GamePinned';
 
 // CSS
 import './styles/global.css';
@@ -32,6 +33,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Switch>
+          <GameRoute exact path='/' component={GamePinned} />
           <GameRoute exact path='/game/:gameKey' component={Game} />
           <Route component={Routes} />
         </Switch>

@@ -22,7 +22,7 @@ const GameIntro = ({ game: { game }, getTicket }) => {
 
 GameIntro.propTypes = {
   game: PropTypes.object.isRequired,
-  startGame: PropTypes.func.isRequired,
+  getTicket: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

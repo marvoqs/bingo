@@ -28,6 +28,11 @@ const GameSchema = new mongoose.Schema({
     required: true,
     default: false,
   },
+  pinned: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
   template: {
     type: [[String]],
     required: true,

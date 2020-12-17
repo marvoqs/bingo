@@ -45,6 +45,22 @@ export const getGameByKey = (key) => async (dispatch) => {
   }
 };
 
+// Get pinned game
+export const getPinnedGame = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/games/pinned`);
+    dispatch({
+      type: GET_GAME,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GAME_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Add game
 export const createGame = (formData, template, history, edit = false) => async (dispatch) => {
   const config = {
@@ -69,6 +85,42 @@ export const createGame = (formData, template, history, edit = false) => async (
     if (!edit) {
       history.push('/admin/games');
     }
+  } catch (err) {
+    dispatch({
+      type: GAME_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Pin game
+export const pinGame = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/games/pin/${id}`);
+
+    dispatch({
+      type: UPDATE_GAME,
+      payload: res.data,
+    });
+    dispatch(setAlert(`Hra byla připnuta na hlavní stránku.`, 'success'));
+  } catch (err) {
+    dispatch({
+      type: GAME_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Unpin game
+export const unpinGame = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/games/unpin/${id}`);
+
+    dispatch({
+      type: UPDATE_GAME,
+      payload: res.data,
+    });
+    dispatch(setAlert(`Hra byla odepnuta z hlavní stránky.`, 'success'));
   } catch (err) {
     dispatch({
       type: GAME_ERROR,

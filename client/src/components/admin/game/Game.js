@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 // Actions
-import { getGameById, startGame, stopGame, updateResults } from '../../../actions/game';
+import { getGameById, pinGame, unpinGame, startGame, stopGame, updateResults } from '../../../actions/game';
 
 // Components
 import Spinner from '../../layout/Spinner';
@@ -19,6 +19,8 @@ const Game = ({
   game: { game, loading },
   getGameById,
   updateResults,
+  pinGame,
+  unpinGame,
   startGame,
   stopGame,
 }) => {
@@ -30,7 +32,7 @@ const Game = ({
     return <Spinner />;
   }
 
-  const { _id, timelimit, numoftips, active, template, results, title } = game;
+  const { _id, timelimit, numoftips, active, pinned, template, results, title } = game;
 
   const handleTileClick = (rowIndex, colIndex) => {
     // Update results in db after every click
@@ -48,6 +50,15 @@ const Game = ({
       <div className='my-1'>
         <div className='float-buttons'>
           <button className='btn btn-warning'>Editovat hru</button>
+          {pinned ? (
+            <button className='btn btn-danger' onClick={() => unpinGame(_id)}>
+              Odepnout hru
+            </button>
+          ) : (
+            <button className='btn btn-success' onClick={() => pinGame(_id)}>
+              Připnout hru
+            </button>
+          )}
           {active ? (
             <button className='btn btn-danger' onClick={() => stopGame(_id)}>
               Ukončit výdej tiketů
@@ -75,6 +86,8 @@ Game.propTypes = {
   game: PropTypes.object.isRequired,
   getGameById: PropTypes.func.isRequired,
   updateResults: PropTypes.func.isRequired,
+  pinGame: PropTypes.func.isRequired,
+  unpinGame: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
   stopGame: PropTypes.func.isRequired,
 };
@@ -83,4 +96,4 @@ const mapStateToProps = (state) => ({
   game: state.game,
 });
 
-export default connect(mapStateToProps, { getGameById, startGame, stopGame, updateResults })(Game);
+export default connect(mapStateToProps, { getGameById, pinGame, unpinGame, startGame, stopGame, updateResults })(Game);

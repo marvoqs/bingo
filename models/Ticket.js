@@ -12,9 +12,12 @@ const TicketSchema = new mongoose.Schema({
   tips: {
     type: [[Boolean]],
   },
-  date: {
+  getdate: {
     type: Date,
     default: Date.now,
+  },
+  submitdate: {
+    type: Date,
   },
 });
 

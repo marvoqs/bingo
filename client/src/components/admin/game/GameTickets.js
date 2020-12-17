@@ -12,7 +12,7 @@ import TicketItem from './TicketItem';
 // Admin game tickets component
 const GameTickets = ({
   game: {
-    game: { _id: gameId, results },
+    game: { _id: gameId },
   },
   ticket: { tickets, loading },
   getTickets,
@@ -46,8 +46,9 @@ const GameTickets = ({
             <thead>
               <tr>
                 <th>Razítko</th>
+                <th className='hide-sm'>Vydáno</th>
                 <th className='hide-sm'>Odevzdáno</th>
-                <th />
+                <th>Výsledek</th>
               </tr>
             </thead>
             <tbody>
@@ -64,7 +65,7 @@ const GameTickets = ({
 
 GameTickets.propTypes = {
   getTickets: PropTypes.func.isRequired,
-  gameId: PropTypes.string.isRequired,
+  game: PropTypes.object.isRequired,
   ticket: PropTypes.object.isRequired,
 };
 

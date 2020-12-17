@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 // Utilities
 import DayJS from 'react-dayjs';
 
+// Ticket item component
 const TicketItem = ({
-  ticket: { stamp, date, tips },
+  ticket: { stamp, tips, getdate, submitdate },
   game: {
     game: { results },
   },
@@ -39,16 +40,17 @@ const TicketItem = ({
     <tr>
       <td>{stamp}</td>
       <td className='hide-sm'>
-        <DayJS format='D. M. YYYY H:mm'>{date}</DayJS>
+        <DayJS format='D. M. YYYY H:mm:ss'>{getdate}</DayJS>
       </td>
+      <td className='hide-sm'>{submitdate ? <DayJS format='D. M. YYYY H:mm:ss'>{submitdate}</DayJS> : <span>neodevzdáno</span>}</td>
       <td>{isBingo && <span>BINGO!</span>}</td>
     </tr>
   );
 };
 
 TicketItem.propTypes = {
-  ticket: PropTypes.object.isRequired,
   game: PropTypes.object.isRequired,
+  ticket: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

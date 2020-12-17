@@ -91,6 +91,7 @@ router.put(
       }
 
       ticket.tips = req.body.tips;
+      ticket.submitdate = Date.now();
 
       await ticket.save();
 

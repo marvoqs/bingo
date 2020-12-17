@@ -14,7 +14,6 @@ const TicketSchema = new mongoose.Schema({
   },
   getdate: {
     type: Date,
-    default: Date.now,
   },
   submitdate: {
     type: Date,

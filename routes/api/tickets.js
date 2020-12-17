@@ -26,7 +26,7 @@ router.get('/', auth, async (req, res) => {
 // @access   Private
 router.get('/game/:game_id', auth, async (req, res) => {
   try {
-    const tickets = await Ticket.find({ game: req.params.game_id }).sort({ date: -1 });
+    const tickets = await Ticket.find({ game: req.params.game_id }).sort({ getdate: -1 });
     res.json(tickets);
   } catch (err) {
     console.error(err.message);
@@ -59,6 +59,7 @@ router.post('/:game_id', async (req, res) => {
     const newTicket = new Ticket({
       game: req.params.game_id,
       stamp,
+      getdate: Date.now(),
     });
     const ticket = await newTicket.save();
     return res.json(ticket);

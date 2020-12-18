@@ -43,8 +43,8 @@ router.get('/id/:game_id', auth, async (req, res) => {
 
 // @route   GET api/games/pinned
 // @desc    Get pinned game
-// @access  Private
-router.get('/pinned', auth, async (req, res) => {
+// @access  Public
+router.get('/pinned', async (req, res) => {
   try {
     const game = await Game.findOne({ pinned: true, active: true });
     if (!game) {

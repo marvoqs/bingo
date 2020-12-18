@@ -1,5 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://admin-marv:pdwMc8fuNa@cluster0.tuxxc.mongodb.net/main?retryWrites=true&w=majority",
-  "jwtSecret": "AsWeQv4YBXVPs6Wy4nSXdX2Wt8U2San5",
-  "rostiSSH": "LQFpU8Sb65XJ"
-}

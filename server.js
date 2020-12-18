@@ -4,6 +4,9 @@ const path = require('path');
 
 const app = express();
 
+// Require dotenv
+require('dotenv').config();
+
 // Connect database
 connectDB();
 

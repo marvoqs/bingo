@@ -1,8 +1,17 @@
+body {
+  background-color: #fff;
+  color: #333;
+}
+
 .game-container {
   max-width: 1100px;
-  margin: 5% auto;
+  margin: 2% auto;
   overflow: hidden;
   text-align: center;
+}
+
+.logo {
+  width: 50%;
 }
 
 .stamp {

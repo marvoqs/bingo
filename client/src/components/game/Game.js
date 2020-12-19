@@ -28,12 +28,12 @@ const Game = ({
     return <Spinner />;
   }
 
-  // Check if game exists
-  if (!gameLoading && game === null) {
-    return <p>Taková hra neexistuje nebo aktuálně není aktivní.</p>;
-  }
-
-  return <>{!ticketLoading && ticket && ticket.game === game._id ? <GameTicket /> : <GameIntro />}</>;
+  return (
+    <>
+      <img src={window.location.origin + '/images/logo.png'} alt='Twitch Bingo by TenMatous' />
+      {!ticketLoading && ticket && ticket.game === game._id ? <GameTicket /> : <GameIntro />}
+    </>
+  );
 };
 
 const mapStateToProps = (state) => ({

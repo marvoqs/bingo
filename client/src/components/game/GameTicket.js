@@ -99,7 +99,7 @@ const GameTicket = ({ game: { game, loading: gameLoading }, ticket: { ticket, ti
           {/* If is not ticket, mark the tips */}
           {countdown > 0 ? <p>Zbývá {countdown} sekund.</p> : <p>Časový limit vypršel. Odevzdej svůj tiket, prosím.</p>}
           <Bingo template={template} tips={tips} results={results} handleTileClick={handleTileClick} />
-          <button className='btn btn-success' onClick={() => handleSubmit()}>
+          <button className='btn btn-primary' onClick={() => handleSubmit()}>
             Odevzdat tiket
           </button>
         </>

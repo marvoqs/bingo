@@ -50,30 +50,30 @@ const CreateGame = ({ createGame, history }) => {
     <>
       <h2>Vytvořit hru</h2>
       <form className='form my-1' onSubmit={(e) => handleSubmit(e)}>
-        <div className='form-group'>
+        <div className='form-group-narrow'>
           <label htmlFor='title'>Název:</label>
           <input type='text' name='title' value={title} onChange={(e) => handleChange(e)} />
           <small className='form-text'>Název je jen označení pro tebe, hráči jej neuvidí.</small>
         </div>
         <div className='form-row'>
-          <div className='form-group'>
+          <div className='form-group-narrow'>
             <label htmlFor='timelimit'>Časový limit:</label>
             <input type='number' name='timelimit' value={timelimit} onChange={(e) => handleChange(e)} />
             <small className='form-text'>Kolik vteřin budou hráči mít na své tipy.</small>
           </div>
-          <div className='form-group'>
+          <div className='form-group-narrow'>
             <label htmlFor='timelimit'>Počet tipů:</label>
             <input type='number' name='numoftips' value={numoftips} onChange={(e) => handleChange(e)} />
             <small className='form-text'>Kolik tipů bude hráč zadávat.</small>
           </div>
         </div>
         <div className='form-row'>
-          <div className='form-group'>
+          <div className='form-group-narrow'>
             <label htmlFor='rowsInput'>Řádků:</label>
             <input type='number' id='rowsInput' name='rows' value={rows} onChange={(e) => setTemplateSize({ ...templateSize, rows: e.target.value })} />
             <small className='form-text'>Kolik řádků bude tabulka mít.</small>
           </div>
-          <div className='form-group'>
+          <div className='form-group-narrow'>
             <label htmlFor='columnsInput'>Sloupců:</label>
             <input
               type='number'

@@ -4,7 +4,7 @@
   --dark-color: #17171c;
   --light-color: #e6f5fd;
   --danger-color: #dc3545;
-  --warning-color: #daa520;
+  --warning-color: #f0ad4e;
   --success-color: #28a745;
 }
 
@@ -18,6 +18,8 @@ body {
   font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
+  background-color: #fff;
+  color: #000;
 }
 
 a {
@@ -36,7 +38,7 @@ img {
 /* Utilities */
 .spinner {
   margin: 5rem auto;
-  border: 0.8rem solid var(--dark-color);
+  border: 0.8rem solid var(--light-color);
   border-top: 0.8rem solid var(--primary-color);
   border-radius: 50%;
   width: 6rem;
@@ -240,7 +242,12 @@ img {
 }
 
 .form .form-group {
-  margin: 0.5rem 0;
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.form .form-group-narrow {
+  margin: 0.5rem;
   width: 100%;
 }
 

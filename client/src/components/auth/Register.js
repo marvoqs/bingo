@@ -41,7 +41,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         </div>
         <div className='form-group'>
           <input type='email' placeholder='E-mailová adresa' name='email' value={email} onChange={(e) => handleChange(e)} required />
-          <small className='form-text'>This site uses Gravatar, so if you want a profile image, use a Gravatar e-mail.</small>
         </div>
         <div className='form-group'>
           <input type='password' placeholder='Heslo' minLength='6' name='password' value={password} onChange={(e) => handleChange(e)} required />
